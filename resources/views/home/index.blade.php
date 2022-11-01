@@ -6,10 +6,22 @@
     <h1>Libros</h1>
     @auth
     <?php
-    $host="localhost";
+
+    $sql = 'SELECT * FROM libros';
+    $listalibros = json_encode(DB::select($sql), true);
+
+    // $products = DB::table('products')->get();
+    // print $products;
+   /* $host="localhost";
     $bd="ptritium";
     $usuario="root";
     $contrasenia="";
+
+   /* $host="localhost";
+    $bd=env('BD_DATABASE');
+    $usuario=env('BD_DATABASE');
+    $contrasenia="";
+    
         try {
             $conexion=new PDO("mysql:host=$host;dbname=$bd", $usuario,$contrasenia);
         
@@ -20,7 +32,9 @@
     $sentenciaSQL=$conexion->prepare("SELECT * FROM libros");
     $sentenciaSQL->execute();
     $listalibros=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
-    
+    */
+
+
     ?>
         <p>Bienvenido <span style="color:red">{{auth()->user()->name ?? auth()->user()->username }}</span>, estas autorizado</p>
         <p>
@@ -38,7 +52,7 @@
             </tr>
         </thead>
         <tbody>
-        <?php foreach($listalibros as $libro){?>
+        <?php foreach(json_decode($listalibros, true) as $libro){?>
             <tr>
                 <td><?php echo $libro['id'];?></td>
                 <td><?php echo $libro['name'];?></td>
